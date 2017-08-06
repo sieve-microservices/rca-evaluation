@@ -1,0 +1,24 @@
+#!/bin/bash -e
+
+db_cmd() {
+    cmd=$1
+    shift
+    gosu postgres "/usr/lib/postgresql/$PG_VERSION/bin/$cmd" "$@"
+}
+
+if [ "$1" = 'postgres' ]; then
+    chown -R postgres $PGDATA
+    chmod 700 $PGDATA
+    if [ ! -s "$PGDATA/PG_VERSION" ]; then
+        db_cmd initdb "$PGDATA"
+        db_cmd pg_ctl -D "$PGDATA" -o "-c listen_addresses=''" -w start
+        db_cmd psql --command "CREATE USER grafana WITH SUPERUSER PASSWORD 'grafana';"
+        db_cmd createdb -O grafana grafana
+        echo "host all  all    0.0.0.0/0  md5" >> $PGDATA/pg_hba.conf
+        echo "listen_addresses='*'" >> $PGDATA/postgresql.conf
+        db_cmd pg_ctl -D "$PGDATA" -o "-c listen_addresses=''" -m fast -w stop
+    fi
+    db_cmd postgres -D "$PGDATA"
+else
+  exec "$@"
+fi

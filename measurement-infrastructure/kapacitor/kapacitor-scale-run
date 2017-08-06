@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+
+rm /tmp/kapacitor-scale.sock
+exec /usr/local/bin/kapacitor-scale http://$RANCHER_ACCESS_KEY:$RANCHER_SECRET_KEY@rancher.local:8080

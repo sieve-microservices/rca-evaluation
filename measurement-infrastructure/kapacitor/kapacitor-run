@@ -1,0 +1,3 @@
+#!/usr/bin/execlineb -P
+
+/usr/local/bin/kapacitord -config /etc/kapacitor.conf

@@ -1,0 +1,86 @@
+version: "2"
+services:
+  base:
+    image: openstack-kolla-measurement/base
+    build:
+      context: base
+      args:
+        - http_proxy
+        - https_proxy
+        - ftp_proxy
+        - no_proxy
+    command: /bin/true
+    labels:
+      tk.higgsboson.no-scheduling: "True"
+  postgresql:
+    image: openstack-kolla-measurement/postgresql
+    build:
+      context: postgresql
+      args:
+        - http_proxy
+        - https_proxy
+        - ftp_proxy
+        - no_proxy
+    depends_on:
+      - base
+    volumes:
+      - datapostgresql:/var/lib/postgresql/data
+    labels:
+      io.rancher.scheduler.affinity:host_label: 'type=database'
+  influxdb:
+    image: openstack-kolla-measurement/influxdb
+    build:
+      context: influxdb
+      args:
+        - http_proxy
+        - https_proxy
+        - ftp_proxy
+        - no_proxy
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+    depends_on:
+      - base
+    volumes:
+      - datainfluxdb:/data
+    labels:
+      io.rancher.scheduler.affinity:host_label: 'type=database'
+  telegraf:
+    image: openstack-kolla-measurement/telegraf
+    build:
+      context: telegraf
+      args:
+        - http_proxy
+        - https_proxy
+        - ftp_proxy
+        - no_proxy
+    depends_on:
+      - base
+    ports:
+      - "8125:8125"
+    links:
+      - influxdb
+    labels:
+      io.rancher.scheduler.affinity:host_label: 'type=application'
+  grafana:
+    image: openstack-kolla-measurement/grafana
+    build:
+      context: grafana
+      args:
+        - http_proxy
+        - https_proxy
+        - ftp_proxy
+        - no_proxy
+    depends_on:
+      - base
+    links:
+      - influxdb
+    ports:
+      - "3000:3000"
+    labels:
+      io.rancher.scheduler.affinity:host_label: 'type=application'
+volumes:
+    datainfluxdb:
+      driver: local
+    datapostgresql:
+      driver: local

@@ -1,0 +1,43 @@
+#!/bin/bash -xe
+
+echo "influxdb configuration: "
+cat /etc/influxdb/influxdb.conf
+
+mkdir -p /data/influxdb
+chown -R influxdb /data/influxdb
+echo "=> Starting InfluxDB ..."
+if [ $# -lt 1 ]; then
+  gosu influxdb influxd -config /etc/influxdb/influxdb.conf&
+else
+  exec "$@"
+  exit 1
+fi
+
+echo "=> About to create databases"
+if [ -f "/data/.pre_db_created" ]; then
+  echo "=> Database had been created before, skipping ..."
+else
+  #wait for the startup of influxdb
+  RET=1
+  set +e
+  while [[ RET -ne 0 ]]; do
+    echo "=> Waiting for confirmation of InfluxDB service startup ..."
+    curl -k localhost:8091/ping 2> /dev/null
+    sleep 3
+    RET=$?
+  done
+  set -e
+  echo ""
+
+  echo "=> Creating admin user"
+  influx -execute="CREATE USER influxdb WITH PASSWORD 'rewtrewt' WITH ALL PRIVILEGES"
+  for x in grafana metrics; do
+    echo "=> Creating database: ${x}"
+    influx -username=influxdb -password="rewtrewt" -execute="create database ${x}"
+  done
+  echo ""
+
+  touch "/data/.pre_db_created"
+fi
+
+wait

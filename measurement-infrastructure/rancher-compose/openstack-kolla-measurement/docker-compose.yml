@@ -1,0 +1,32 @@
+---
+postgresql:
+  image: 192.168.8.17:4000/openstack-kolla-measurement/postgresql
+  volumes:
+  - datapostgresql:/var/lib/postgresql/data
+  labels:
+    io.rancher.scheduler.affinity:host_label: type=database
+influxdb:
+  image: 192.168.8.17:4000/openstack-kolla-measurement/influxdb
+  ports:
+  - 8083:8083
+  - 8086:8086
+  volumes:
+  - datainfluxdb:/data
+  labels:
+    io.rancher.scheduler.affinity:host_label: type=database
+telegraf:
+  image: 192.168.8.17:4000/openstack-kolla-measurement/telegraf
+  ports:
+  - 8125:8125
+  links:
+  - influxdb
+  labels:
+    io.rancher.scheduler.affinity:host_label: type=application
+grafana:
+  image: 192.168.8.17:4000/openstack-kolla-measurement/grafana
+  links:
+  - influxdb
+  ports:
+  - 3000:3000
+  labels:
+    io.rancher.scheduler.affinity:host_label: type=application
