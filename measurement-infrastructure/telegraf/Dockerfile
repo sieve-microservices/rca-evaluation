@@ -11,12 +11,11 @@ RUN apt-get update \
         python-pip \
     && pip install --upgrade ipaddr \
     && pip install --upgrade pytz \
-    && pip install --upgrade python-openstackclient \
-    && pip install --upgrade python-neutronclient \
-    && pip install --upgrade python-novaclient \
-    && pip install --upgrade python-keystoneclient \
-    && pip install --upgrade python-ceilometerclient \
-    && pip install --upgrade python-heatclient
+    && pip install python-neutronclient==3.1.1 \
+    && pip install python-novaclient==2.30.3 \
+    && pip install python-keystoneclient==2.3.2 \
+    && pip install python-ceilometerclient==1.5.0 \
+    && pip install python-heatclient==0.8.0
 # add config files and scripts
 ADD rpc-openstack/etc/openrc-maas /etc/rpc-openstack/
 ADD rpc-openstack/maas/plugins/ /home/rpc-openstack/maas/plugins/

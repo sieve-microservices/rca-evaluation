@@ -93,7 +93,6 @@ def check(args, auth_details):
 
                     metric_values[metric_name + field] = value
 
-    print(metric_values)
 #    status_ok()
 #    metric_bool('keystone_api_local_status', is_up)
 #    # only want to send other metrics if api is up
