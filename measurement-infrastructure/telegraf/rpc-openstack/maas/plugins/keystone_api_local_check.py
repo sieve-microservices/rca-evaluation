@@ -88,8 +88,8 @@ def check(args, auth_details):
 
                     if (field == "duration"):
                         count = metric_values[metric_name + "count"]
-                        value = value / count
-                        field = "avg_time"
+                        value = count / value
+                        field = "rate"
 
                     metric_values[metric_name + field] = value
 
