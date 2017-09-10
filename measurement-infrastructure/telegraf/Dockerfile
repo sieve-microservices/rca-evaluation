@@ -5,6 +5,8 @@ FROM openstack-kolla-measurement/base
 RUN apt-get update \
     && apt-get install -y --no-install-recommends --fix-missing \
         build-essential \
+        libssl-dev \
+        libffi-dev \
         python-dev \
         python-pip \
     && pip install --upgrade ipaddr \
@@ -22,8 +24,8 @@ ADD rpc-openstack/maas/plugins/ /home/rpc-openstack/maas/plugins/
 # add openstack credentials (passwords shouldn't be hardcoded in here...)
 ENV OS_TENANT_NAME=admin
 ENV OS_USERNAME=admin
-ENV OS_PASSWORD=7H016SgO8Xxw8fmRnrtk1e3TLzUQo0Hm09oyN8ms
-ENV OS_AUTH_URL=http://192.168.8.99:35357/v2.0/
+ENV OS_PASSWORD=WyiKo0XSlQRqstl5mgzAiRkQfG1o5nfGcRFU7pMZ
+ENV OS_AUTH_URL=http://storage.openstack.sieve:35357/v2.0/
 ENV OS_IDENTITY_API_VERSION=2.0
 
 # 'source' doesn't run if we don't replace the default command interpreter 
@@ -41,7 +43,6 @@ RUN curl -sL https://repos.influxdata.com/influxdb.key | apt-key add - \
         telegraf --no-install-recommends --fix-missing \
     && apt-get purge -y --auto-remove \
         build-essential \
-#        python-pip \
         g++ \
         g++-4.8 \
         libstdc++-4.8-dev

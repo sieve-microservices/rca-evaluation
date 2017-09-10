@@ -12,7 +12,7 @@ end
 
 compose = YAML.load_file(ARGV.first)
 compose["services"].each do |_, service|
-  new_name = "192.168.8.17:4000/#{service["image"]}"
+  new_name = "docker-registry.openstack.sieve:4000/#{service["image"]}"
   sh("docker", "tag", "#{service["image"]}", new_name)
   sh("docker", "push", new_name)
 end

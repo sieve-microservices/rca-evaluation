@@ -1,7 +1,7 @@
 # openstack env variables
 export OS_TENANT_NAME=admin
 export OS_USERNAME=admin
-export OS_PASSWORD=yEwDW640ES2pcTzE0SAogKw9STMRAkKcWRLlyqxK
-export OS_AUTH_URL=http://192.168.8.99:35357/v2.0/
+export OS_PASSWORD=WyiKo0XSlQRqstl5mgzAiRkQfG1o5nfGcRFU7pMZ
+export OS_AUTH_URL=http://storage.openstack.sieve:35357/v2.0/
 export OS_IDENTITY_API_VERSION=2.0
 

@@ -6,7 +6,7 @@ EXTENSIONS_LIST = "~"
 
 deploy: upload
 	ruby scripts/convert-compose-v2.rb docker-compose.yml > rancher-compose/${RANCHER_STACK_NAME}/docker-compose.yml
-	cd rancher-compose/${RANCHER_STACK_NAME}/ && sudo rancher-compose --debug --url $(RANCHER_URL) --access-key $(RANCHER_ACCESS_KEY) --secret-key $(RANCHER_SECRET_KEY) up --upgrade --pull --batch-size 99 &
+	cd rancher-compose/${RANCHER_STACK_NAME}/ && sudo -E rancher-compose --debug --url $(RANCHER_URL) --access-key $(RANCHER_ACCESS_KEY) --secret-key $(RANCHER_SECRET_KEY) up --upgrade --pull --batch-size 99 &
 
 upload: build
 	ruby scripts/upload-container.rb docker-compose.yml

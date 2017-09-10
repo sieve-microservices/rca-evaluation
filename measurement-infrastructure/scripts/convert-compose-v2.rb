@@ -11,7 +11,7 @@ compose["services"].each do |name, service|
   service.delete("build")
   service.delete("depends_on")
   if service["image"].start_with?("openstack-kolla")
-    service["image"] = "192.168.8.17:4000/#{service["image"]}"
+    service["image"] = "docker-registry.openstack.sieve:4000/#{service["image"]}"
   end
 end
 YAML.dump(compose["services"], $stdout)

@@ -61,24 +61,7 @@ services:
     links:
       - influxdb
     labels:
-      io.rancher.scheduler.affinity:host_label: 'type=application'
-  grafana:
-    image: openstack-kolla-measurement/grafana
-    build:
-      context: grafana
-      args:
-        - http_proxy
-        - https_proxy
-        - ftp_proxy
-        - no_proxy
-    depends_on:
-      - base
-    links:
-      - influxdb
-    ports:
-      - "3000:3000"
-    labels:
-      io.rancher.scheduler.affinity:host_label: 'type=application'
+      io.rancher.scheduler.affinity:host_label: 'type=monitoring'
 volumes:
     datainfluxdb:
       driver: local
