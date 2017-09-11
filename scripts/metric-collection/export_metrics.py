@@ -32,6 +32,9 @@ def scroll(query, begin, until, prefix=None):
             for row in batch:
                 # truncate longer ids to match with shorter host names
                 if "container_id" in row:
+                    
+                    if row["container_id"] is None:
+                        continue
                     row["container_id"] = row["container_id"][0:11]
 
                 time_col = row["time"][0:min(26, len(row["time"]) - 1)]
