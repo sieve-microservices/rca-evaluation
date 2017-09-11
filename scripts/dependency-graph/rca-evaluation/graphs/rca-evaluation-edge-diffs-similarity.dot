@@ -1,0 +1,20 @@
+
+digraph {
+overlap = false;
+pack = false;
+splines = curved;
+rankdir = "LR";
+nodesep = 0.35;
+graph [ dpi = 300 ]; 
+node [ fontsize = 8 ];
+edge [ fontsize = 6 ];
+neutron_server [label="Neutron
+server\n",color=black,style=solid]
+rabbitmq [label="RabbitMQ\n",color=black,style=solid]
+    "neutron_server" -> "rabbitmq" [tooltip="usage > messa::es_ack",dir=forward,color=green,style=solid]
+neutron_l3_agent [label="Neutron
+L3
+agent\n",color=black,style=solid]
+    "neutron_l3_agent" -> "rabbitmq" [tooltip="usage_total > messa::es_ack",dir=forward,color=green,style=solid]
+    "rabbitmq" -> "neutron_server" [tooltip="messages > usage",dir=forward,color=green,style=solid]
+}
