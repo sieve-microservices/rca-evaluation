@@ -1,7 +1,7 @@
 version: "2"
 services:
   base:
-    image: openstack-kolla-measurement/base
+    image: openstack-kolla-measurement-mitaka-bug1590179-faulty/base
     build:
       context: base
       args:
@@ -13,7 +13,7 @@ services:
     labels:
       tk.higgsboson.no-scheduling: "True"
   postgresql:
-    image: openstack-kolla-measurement/postgresql
+    image: openstack-kolla-measurement-mitaka-bug1590179-faulty/postgresql
     build:
       context: postgresql
       args:
@@ -28,7 +28,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: 'type=database'
   influxdb:
-    image: openstack-kolla-measurement/influxdb
+    image: openstack-kolla-measurement-mitaka-bug1590179-faulty/influxdb
     build:
       context: influxdb
       args:
@@ -46,7 +46,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: 'type=database'
   telegraf:
-    image: openstack-kolla-measurement/telegraf
+    image: openstack-kolla-measurement-mitaka-bug1590179-faulty/telegraf
     build:
       context: telegraf
       args:

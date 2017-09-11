@@ -1,5 +1,5 @@
 # Build: docker build -t apt-cacher .
-# Run: docker run -d -p 3142:3142 --name apt-cacher-ng openstack-kolla-measurement/apt-cacher-ng
+# Run: docker run -d -p 3142:3142 --name apt-cacher-ng openstack-kolla-measurement-mitaka-bug1590179-faulty/apt-cacher-ng
 FROM ubuntu:trusty
 
 ADD apt.conf /etc/apt/apt.conf

@@ -1,4 +1,4 @@
-FROM openstack-kolla-measurement/base
+FROM openstack-kolla-measurement-mitaka-bug1590179-faulty/base
 
 # rpc-openstack monitoring scripts
 # install library dependencies (python and openstack clients)
@@ -11,12 +11,12 @@ RUN apt-get update \
         python-pip \
     && pip install --upgrade ipaddr \
     && pip install --upgrade pytz \
-    && pip install --upgrade python-openstackclient \
-    && pip install --upgrade python-neutronclient \
-    && pip install --upgrade python-novaclient \
-    && pip install --upgrade python-keystoneclient \
-    && pip install --upgrade python-ceilometerclient \
-    && pip install --upgrade python-heatclient
+    && pip install python-openstackclient \
+    && pip install python-neutronclient==4.1.2 \
+    && pip install python-novaclient==3.3.3 \
+    && pip install python-keystoneclient==2.3.2 \
+    && pip install python-ceilometerclient==2.4.0 \
+    && pip install python-heatclient==1.1.1
 # add config files and scripts
 ADD rpc-openstack/etc/openrc-maas /etc/rpc-openstack/
 ADD rpc-openstack/maas/plugins/ /home/rpc-openstack/maas/plugins/
@@ -24,7 +24,7 @@ ADD rpc-openstack/maas/plugins/ /home/rpc-openstack/maas/plugins/
 # add openstack credentials (passwords shouldn't be hardcoded in here...)
 ENV OS_TENANT_NAME=admin
 ENV OS_USERNAME=admin
-ENV OS_PASSWORD=WyiKo0XSlQRqstl5mgzAiRkQfG1o5nfGcRFU7pMZ
+ENV OS_PASSWORD=SnR1ARGLf567EjfHWd4bSpnWmaWmhO06t54NDV1v
 ENV OS_AUTH_URL=http://storage.openstack.sieve:35357/v2.0/
 ENV OS_IDENTITY_API_VERSION=2.0
 

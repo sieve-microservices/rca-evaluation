@@ -1,4 +1,4 @@
-FROM openstack-kolla-measurement/base
+FROM openstack-kolla-measurement-mitaka-bug1590179-faulty/base
 
 RUN curl https://s3.amazonaws.com/get.influxdb.org/chronograf/chronograf_0.12.0_amd64.deb > /tmp/chronograf.deb && \
     dpkg -i /tmp/chronograf.deb

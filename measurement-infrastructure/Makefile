@@ -1,6 +1,6 @@
 all: build
 
-RANCHER_STACK_NAME:=openstack-kolla-measurement
+RANCHER_STACK_NAME:=openstack-kolla-measurement-mitaka-bug1590179-faulty
 WILDCARD:=*
 EXTENSIONS_LIST = "~"
 

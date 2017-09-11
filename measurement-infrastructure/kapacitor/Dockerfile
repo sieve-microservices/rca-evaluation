@@ -1,4 +1,4 @@
-FROM openstack-kolla-measurement/base
+FROM openstack-kolla-measurement-mitaka-bug1590179-faulty/base
 
 RUN apt install -y git-core && \
     curl -L "https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz" | \

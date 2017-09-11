@@ -1,4 +1,4 @@
-FROM openstack-kolla-measurement/base
+FROM openstack-kolla-measurement-mitaka-bug1590179-faulty/base
 RUN curl -L "https://grafanarel.s3.amazonaws.com/builds/grafana_2.6.0_amd64.deb" > /tmp/grafana.deb && \
       apt-get install -y adduser libfontconfig && \
       dpkg -i /tmp/grafana.deb

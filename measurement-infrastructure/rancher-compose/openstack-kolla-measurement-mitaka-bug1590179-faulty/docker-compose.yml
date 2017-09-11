@@ -1,12 +1,12 @@
 ---
 postgresql:
-  image: docker-registry.openstack.sieve:4000/openstack-kolla-measurement/postgresql
+  image: docker-registry.openstack.sieve:4000/openstack-kolla-measurement-mitaka-bug1590179-faulty/postgresql
   volumes:
   - datapostgresql:/var/lib/postgresql/data
   labels:
     io.rancher.scheduler.affinity:host_label: type=database
 influxdb:
-  image: docker-registry.openstack.sieve:4000/openstack-kolla-measurement/influxdb
+  image: docker-registry.openstack.sieve:4000/openstack-kolla-measurement-mitaka-bug1590179-faulty/influxdb
   ports:
   - 8083:8083
   - 8086:8086
@@ -15,7 +15,7 @@ influxdb:
   labels:
     io.rancher.scheduler.affinity:host_label: type=database
 telegraf:
-  image: docker-registry.openstack.sieve:4000/openstack-kolla-measurement/telegraf
+  image: docker-registry.openstack.sieve:4000/openstack-kolla-measurement-mitaka-bug1590179-faulty/telegraf
   ports:
   - 8125:8125
   links:

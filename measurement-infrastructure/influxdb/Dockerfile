@@ -1,4 +1,4 @@
-FROM openstack-kolla-measurement/base
+FROM openstack-kolla-measurement-mitaka-bug1590179-faulty/base
 RUN curl -sL https://repos.influxdata.com/influxdb.key | apt-key add - && \
     echo "deb https://repos.influxdata.com/ubuntu trusty stable" > /etc/apt/sources.list.d/influxdb.list && \
     apt install -y apt-transport-https && \
