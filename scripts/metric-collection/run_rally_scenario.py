@@ -30,13 +30,17 @@ if __name__ == '__main__':
                 should be kept. default is '%s'.""" % RALLY_SCENARIOS_DIR))
 
     parser.add_argument(
+        "--input-dir", 
+         help = ("""path to dir w/ .json rally tasks to run"""))
+
+    parser.add_argument(
         "--output-dir", 
          help = ("""path to dir where measurements should be saved"""))
 
-    parser.add_argument(
-        "--tasks-to-run", 
-         help = """list of .json files w/ rally tasks to run, separated by '|'. e.g. 
-                '--tasks-to-run \"boot-and-delete.json|authenticate-user-and-validate-token.json\"'""")
+    # parser.add_argument(
+    #     "--tasks-to-run", 
+    #      help = """list of .json files w/ rally tasks to run, separated by '|'. e.g. 
+    #             '--tasks-to-run \"boot-and-delete.json|authenticate-user-and-validate-token.json\"'""")
 
     parser.add_argument(
         "--num-runs", 
@@ -57,8 +61,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if not args.tasks_to_run:
-        sys.stderr.write("""%s: [ERROR] must provide valid '--tasks-to-run'\n""" % sys.argv[0]) 
+    # if not args.tasks_to_run:
+    #     sys.stderr.write("""%s: [ERROR] must provide valid '--tasks-to-run'\n""" % sys.argv[0]) 
+    #     parser.print_help()
+    #     sys.exit(1)
+
+    if not args.input_dir:
+        sys.stderr.write("""%s: [ERROR] must provide valid '--input-dir'\n""" % sys.argv[0]) 
         parser.print_help()
         sys.exit(1)
 
@@ -74,7 +83,7 @@ if __name__ == '__main__':
         args.num_runs = 1
 
     # evaluation runs per rally task
-    for task_file in args.tasks_to_run.split("|"): 
+    for task_file in os.listdir(args.input_dir):
 
         if not args.test_time:
             # record start & end times to query influxdb
