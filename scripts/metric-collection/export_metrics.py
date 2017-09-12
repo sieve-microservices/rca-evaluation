@@ -9,7 +9,7 @@ import json
 import os.path
 from collections import defaultdict
 
-server      = os.environ.get("INFLUXDB_SERVER", "192.168.8.19")
+server      = os.environ.get("INFLUXDB_SERVER", "database.openstack.sieve")
 port        = int(os.environ.get("INFLUXDB_PORT", "8086"))
 user        = os.environ.get("INFLUXDB_USER", "influxdb")
 password    = os.environ.get("INFLUXDB_PASSWORD", "rewtrewt")
@@ -32,6 +32,9 @@ def scroll(query, begin, until, prefix=None):
             for row in batch:
                 # truncate longer ids to match with shorter host names
                 if "container_id" in row:
+                    
+                    if row["container_id"] is None:
+                        continue
                     row["container_id"] = row["container_id"][0:11]
 
                 time_col = row["time"][0:min(26, len(row["time"]) - 1)]
@@ -263,8 +266,8 @@ def export(metadata, start, end, container_image_pattern):
     metadata["end"] = end.isoformat() + "Z"
     metadata["services"] = []
 
-    ts = datetime.utcnow().strftime("%Y%m%d%H%M%S-")
-    path = os.path.join(metadata["metrics_export"], ts + metadata["measurement_name"])
+    # results saved in folder : <task-name>/<start-time-timestamp>
+    path = os.path.join(metadata["metrics_export"], start.strftime("%Y%m%d%H%M%S") + "-" + end.strftime("%Y%m%d%H%M%S"))
     if not os.path.isdir(path):
         os.makedirs(path)
 
@@ -275,3 +278,4 @@ def export(metadata, start, end, container_image_pattern):
         json.dump(metadata, f, cls=Encoder, sort_keys=True, indent=4)
         f.flush()
 
+    return path
