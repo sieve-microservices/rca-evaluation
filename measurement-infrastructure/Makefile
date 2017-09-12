@@ -1,6 +1,6 @@
 all: build
 
-RANCHER_STACK_NAME:=openstack-kolla-measurement
+RANCHER_STACK_NAME:=openstack-kolla-measurement-liberty-bug1590179-correct
 WILDCARD:=*
 EXTENSIONS_LIST = "~"
 

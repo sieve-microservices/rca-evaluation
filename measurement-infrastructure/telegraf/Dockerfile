@@ -1,4 +1,4 @@
-FROM openstack-kolla-measurement/base
+FROM openstack-kolla-measurement-liberty-bug1590179-correct/base
 
 # rpc-openstack monitoring scripts
 # install library dependencies (python and openstack clients)
@@ -23,7 +23,7 @@ ADD rpc-openstack/maas/plugins/ /home/rpc-openstack/maas/plugins/
 # add openstack credentials (passwords shouldn't be hardcoded in here...)
 ENV OS_TENANT_NAME=admin
 ENV OS_USERNAME=admin
-ENV OS_PASSWORD=WyiKo0XSlQRqstl5mgzAiRkQfG1o5nfGcRFU7pMZ
+ENV OS_PASSWORD=SnR1ARGLf567EjfHWd4bSpnWmaWmhO06t54NDV1v
 ENV OS_AUTH_URL=http://storage.openstack.sieve:35357/v2.0/
 ENV OS_IDENTITY_API_VERSION=2.0
 

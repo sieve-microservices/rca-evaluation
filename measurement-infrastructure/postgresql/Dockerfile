@@ -1,4 +1,4 @@
-FROM openstack-kolla-measurement/base
+FROM openstack-kolla-measurement-liberty-bug1590179-correct/base
 
 VOLUME /data/db
 RUN apt install -y postgresql
