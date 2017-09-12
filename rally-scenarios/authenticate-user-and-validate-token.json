@@ -4,7 +4,7 @@
             "args": {},
             "runner": {
                 "type": "constant",
-                "times": 50,
+                "times": 20,
                 "concurrency": 5
             },
             "context": {
