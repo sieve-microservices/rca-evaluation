@@ -1,0 +1,38 @@
+
+digraph {
+overlap = false;
+pack = false;
+splines = curved;
+rankdir = "LR";
+nodesep = 0.35;
+graph [ dpi = 300 ]; 
+node [ fontsize = 8 ];
+edge [ fontsize = 6 ];
+haproxy [label="Haproxy\n",color=black,style=solid]
+nova_api [label="Nova
+API\n",color=black,style=solid]
+    "haproxy" -> "nova_api" [tooltip="pgfault > pgfault",dir=forward,color=green,style=solid]
+neutron_server [label="Neutron
+server\n",color=black,style=solid]
+rabbitmq [label="RabbitMQ\n",color=black,style=solid]
+    "neutron_server" -> "rabbitmq" [tooltip="usage > messa::es_ack",dir=forward,color=green,style=solid]
+neutron_l3_agent [label="Neutron
+L3
+agent\n",color=black,style=solid]
+    "neutron_l3_agent" -> "rabbitmq" [tooltip="usage_total > messa::es_ack",dir=forward,color=green,style=solid]
+nova_conductor [label="Nova
+conductor\n",color=black,style=solid]
+    "rabbitmq" -> "nova_conductor" [tooltip="messa::es_ack > pgfault",dir=forward,color=green,style=solid]
+    "rabbitmq" -> "nova_api" [tooltip="messages > active_file",dir=forward,color=green,style=solid]
+nova_scheduler [label="Nova
+scheduler\n",color=black,style=solid]
+    "rabbitmq" -> "nova_scheduler" [tooltip="messages > inact::e_file",dir=forward,color=green,style=solid]
+    "rabbitmq" -> "neutron_server" [tooltip="messages > usage",dir=forward,color=green,style=solid]
+nova_compute [label="Nova
+compute\n",color=black,style=solid]
+    "rabbitmq" -> "nova_compute" [tooltip="messages > io_se::ve_rea",dir=forward,color=green,style=solid]
+neutron_dhcp_agent [label="Neutron
+DHCP
+agent\n",color=black,style=solid]
+    "rabbitmq" -> "neutron_dhcp_agent" [tooltip="messages > io_se::_total",dir=forward,color=blue,style=dotted]
+}

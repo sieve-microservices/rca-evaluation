@@ -1,0 +1,18 @@
+
+digraph {
+overlap = false;
+pack = false;
+splines = curved;
+rankdir = "LR";
+nodesep = 0.35;
+graph [ dpi = 300 ]; 
+node [ fontsize = 8 ];
+edge [ fontsize = 6 ];
+neutron_server [label="Neutron
+server\n",color=black,style=solid]
+nova_api [label="Nova
+API\n",color=black,style=solid]
+    "neutron_server" -> "nova_api" [tooltip="neutr::_ports > usage_total",dir=forward,color=red,style=dashed]
+    "nova_api" -> "neutron_server" [tooltip="active_file > neutr::outers",dir=forward,color=green,style=solid]
+    "neutron_server" -> "nova_api" [tooltip="usage::system > pgfault",dir=forward,color=green,style=solid]
+}
