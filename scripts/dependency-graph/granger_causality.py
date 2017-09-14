@@ -7,7 +7,7 @@ import itertools
 import pandas as pd
 import numpy as np
 import argparse
-import metric_str_utils as msu
+import metrics_utils as msu
 
 from collections import defaultdict
 from statsmodels.tsa.stattools import grangercausalitytests, adfuller
@@ -164,7 +164,7 @@ SERVICES = ["horizon",
     "neutron_metadata_agent", 
     "neutron_l3_agent", 
     "neutron_dhcp_agent", 
-#    "neutron_openvswitch_agent", 
+    "neutron_openvswitch_agent", 
     "neutron_server:neutron_api_local_check", 
     "openvswitch_vswitchd", 
     "nova_ssh", 
@@ -181,29 +181,14 @@ SERVICES = ["horizon",
     "rabbitmq:rabbitmq_overview:rabbitmq_node:rabbitmq_queue", 
     "mariadb", 
     "memcached:memcached", 
-    "keepalived", 
-    "haproxy", 
     "cron", 
     "kolla_toolbox", 
-    "heka",
-#    "swift_proxy_server",
-    "swift_object_updater",
-    "swift_object_replicator",
-    "swift_object_auditor",
-    "swift_object_server",
-    "swift_container_updater",
-    "swift_container_replicator",
-    "swift_container_auditor",
-    "swift_container_server",
-    "swift_account_reaper",
-    "swift_account_replicator",
-    "swift_account_auditor",
-    "swift_account_server",
-    "swift_rsyncd"]
+    "heka"
+    ]
 
 # services with which every other service communicates but may not be present 
 # in callgraph .dot file (e.g. AMQP connections to rabbitmq)
-COMMON_SERVICES = ["rabbitmq"]
+COMMON_SERVICES = ["rabbitmq","memcached"]
 # the main openstack service prefixes
 MAIN_SERVICES = ["nova", "neutron", "glance", "swift", "cinder"]
 
