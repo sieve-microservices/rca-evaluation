@@ -7,7 +7,7 @@ import itertools
 import pandas as pd
 import numpy as np
 import argparse
-import metric_str_utils as msu
+import metrics_utils as msu
 
 from collections import defaultdict
 from statsmodels.tsa.stattools import grangercausalitytests, adfuller
